@@ -35,14 +35,20 @@ $app->post('/login','login');
 /*Cliente*/
 $app->post('/addCliente','addClientes');
 $app->put('/clientes','actualizarCliente');
-//$app->post('/clientes','addAutos');
+$app->post('/addAutos','addAutos');
 /*Administrador*/
-//$app->post('/administrador','addAdmmin');
+$app->post('/addAdministrador','addAdmmin');
 //$app->post('/administrador','actualizarAdmin');
-//$app->post('/administrador','addMecanico');
-//$app->post('/administrador','addMantenimiento');
-$app->post('/administrador','addCitas');
-
+$app->post('/addMecanico','addMecanico');
+$app->post('/addMantenimiento','addMantenimiento');
+$app->post('/postCitas','postCitas');
+$app->get('/getMantenimientos', 'getMantenimientos');
+$app->get('/getClientes','getClientes');
+$app->get('/getMecanico', 'getMecanico');
+$app->get('/getNomMantenimientos','getNomMantenimientos');
+$app->get('/getAutos','getAutos');
+$app->get('/getModeloAutos', 'getModeloAutos');
+$app->get('/getAdministradores', 'getAdministradores');
 
 
 $app->run();

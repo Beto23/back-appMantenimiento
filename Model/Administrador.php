@@ -42,7 +42,7 @@
 }
 
 /*Funcion para insertar un cita*/
-	function addCitas() {
+	function postCitas() {
 	$request = \Slim\Slim::getInstance()->request();
 	$doc = json_decode($request->getBody());
 	echo json_encode($doc);
@@ -101,6 +101,7 @@
 		echo json_encode($answer);
 	}
 }
+/*Actualizar administradores*/
 function actualizarAdmin() {
 	$request = \Slim\Slim::getInstance()->request();
 	$req = json_decode($request->getBody());
@@ -121,6 +122,121 @@ function actualizarAdmin() {
 		echo json_encode($answer);
 	}
 }
+/*Datos de Mantenimiento*/
+
+function getMantenimientos() { 
+	$sql_query = "SELECT * FROM mantenimientos";
+	try {
+		$dbCon = getConnection();
+		$stmt   = $dbCon->query($sql_query);
+		$data  = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$dbCon = null;
+		echo json_encode($data);
+	} 
+	catch(PDOException $e) {
+		$answer = array( 'error' =>  $e->getMessage());
+		echo json_encode($answer);
+	}
+}
+
+/*Nombre del mantenimiento*/
+function getNomMantenimientos() { 
+	$sql_query = "SELECT descripcion FROM mantenimientos";
+	try {
+		$dbCon = getConnection();
+		$stmt   = $dbCon->query($sql_query);
+		$data  = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$dbCon = null;
+		echo json_encode($data);
+	} 
+	catch(PDOException $e) {
+		$answer = array( 'error' =>  $e->getMessage());
+		echo json_encode($answer);
+	}
+}
 
 
+
+
+/*Datos de los Clientes*/
+
+function getClientes() { 
+	$sql_query = "SELECT id_cliente, nombre, nom_paterno, nom_materno FROM clientes";
+	try {
+		$dbCon = getConnection();
+		$stmt   = $dbCon->query($sql_query);
+		$data  = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$dbCon = null;
+		echo json_encode($data);
+	} 
+	catch(PDOException $e) {
+		$answer = array( 'error' =>  $e->getMessage());
+		echo json_encode($answer);
+	}
+}
+/*Datos de los administradores*/
+
+function getAdministradores() { 
+	$sql_query = "SELECT id_administrador, nombre, correo, usuario FROM administrador";
+	try {
+		$dbCon = getConnection();
+		$stmt   = $dbCon->query($sql_query);
+		$data  = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$dbCon = null;
+		echo json_encode($data);
+	} 
+	catch(PDOException $e) {
+		$answer = array( 'error' =>  $e->getMessage());
+		echo json_encode($answer);
+	}
+}
+/*Datos del mecanico*/
+
+function getMecanico() { 
+	$sql_query = "SELECT * FROM mecanicos";
+	try {
+		$dbCon = getConnection();
+		$stmt   = $dbCon->query($sql_query);
+		$data  = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$dbCon = null;
+		echo json_encode($data);
+	} 
+	catch(PDOException $e) {
+		$answer = array( 'error' =>  $e->getMessage());
+		echo json_encode($answer);
+	}
+}
+
+/*Datos del auto*/
+
+function getAutos() { 
+	$sql_query = "SELECT * FROM autos";
+	try {
+		$dbCon = getConnection();
+		$stmt   = $dbCon->query($sql_query);
+		$data  = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$dbCon = null;
+		echo json_encode($data);
+	} 
+	catch(PDOException $e) {
+		$answer = array( 'error' =>  $e->getMessage());
+		echo json_encode($answer);
+	}
+}
+/*marca del auto*/
+
+function getModeloAutos() { 
+	$sql_query = "SELECT modelo FROM autos";
+	try {
+		$dbCon = getConnection();
+		$stmt   = $dbCon->query($sql_query);
+		$data  = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$dbCon = null;
+		echo json_encode($data);
+	} 
+	catch(PDOException $e) {
+		$answer = array( 'error' =>  $e->getMessage());
+		echo json_encode($answer);
+	}
+}
 ?>
