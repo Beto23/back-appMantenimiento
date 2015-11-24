@@ -26,19 +26,41 @@ header('Access-Control-Allow-Origin: *');
 
     }
 
+function upload(){
+    if ( !empty( $_FILES ) ) {
+        $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
+        $url = 'uploads' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
+        $uploadPath = dirname( __FILE__ ) . DIRECTORY_SEPARATOR . $url;
+        move_uploaded_file( $tempPath, $uploadPath );
+        $answer = array( 'url' => 'http://localhost/estructura-angular/backend/' . $url);
+        echo json_encode($answer);
+    } else {
+        $answer = array( 'error' => 'No se subio la imagen correctamente');
+        echo json_encode($answer);
+    }
+}
 
 
 /**************** OBTENER TODOS LOS DIRECTORIOS ************************/
 
-
+$app->post('/upload', 'upload');
 $app->post('/login','login');
 /*Cliente*/
 $app->post('/addCliente','addClientes');
-$app->put('/clientes','actualizarCliente');
+$app->put('/putCliente','putCliente');
+$app->put('/putAuto', 'putAuto');
 $app->post('/addAutos','addAutos');
+$app->get('/getAutosByClientesUser/:id', 'getAutosByClientesUser');
+$app->get('/getMisCitas/:id', 'getMisCitas');
+$app->delete('/deleteAuto', 'deleteAuto');
+
+
 /*Administrador*/
 $app->post('/addAdministrador','addAdmmin');
-//$app->post('/administrador','actualizarAdmin');
+$app->put('/putAdministrador','putAdministrador');
+$app->put('/putMecanicos','putMecanicos');
+$app->put('/putMantenimientos','putMantenimientos');
+$app->put('/putCita','putCita');
 $app->post('/addMecanico','addMecanico');
 $app->post('/addMantenimiento','addMantenimiento');
 $app->post('/postCitas','postCitas');
@@ -49,6 +71,12 @@ $app->get('/getNomMantenimientos','getNomMantenimientos');
 $app->get('/getAutos','getAutos');
 $app->get('/getModeloAutos', 'getModeloAutos');
 $app->get('/getAdministradores', 'getAdministradores');
+$app->get('/getAutosByClientes/:id', 'getAutosByClientes');
+$app->get('/getCitas','getCitas');
+$app->delete('/deleteMecanico', 'deleteMecanico');
+$app->delete('/deleteCita', 'deleteCita');
+$app->delete('/deleteMantenimiento', 'deleteMantenimiento');
+$app->delete('/deleteAdministrador', 'deleteAdministrador');
 
 
 $app->run();

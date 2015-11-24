@@ -10,8 +10,7 @@ function login() {
 		$dbCon = null;
 	} 
 	catch(PDOException $e) {
-		$answer = array( 'error' =>  $e->getMessage());
-		echo json_encode($answer);
+		$answer = array('estatus'=>'error', 'msj' =>  $e->getMessage());
 	}
 	$sql_query = "SELECT * FROM clientes WHERE usuario = '$usuario->usuario' AND password = '$usuario->password'";
 	try {
@@ -21,19 +20,19 @@ function login() {
 		$dbCon = null;
 	} 
 	catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}';
+		$answer = array('estatus'=>'error', 'msj' =>  $e->getMessage());
 	}
 	if(count($admin) > 0){
-		$admin[0]->tipoUsuario = 'administrador';
-		echo json_encode($admin[0]);
+		$admin = $admin[0];
+		$answer = array('estatus'=>'ok', 'msj' => "¡Bienvenido $admin->nombre!", 'tipoUsuario'=>'admin', 'admin' => $admin);
 	} else {
 		if(count($cliente) > 0){
-			$cliente[0]->tipoUsuario = 'cliente';
-			echo json_encode($cliente[0]);
+			$cliente = $cliente[0];
+			$answer = array('estatus'=>'ok', 'msj' => "¡Bienvenido $cliente->nombre!", 'tipoUsuario'=>'cliente', 'cliente' => $cliente);
 		} else {
-			$answer = array( 'tipoUsuario' =>  null);
-			echo json_encode($answer);
+			$answer = array('estatus'=>'error','msj'=>'Usuario y/o contraseña incorrecta. Por Favor intente de nuevo.');
 		}
 	}
+	echo json_encode($answer);
 }
 ?>
