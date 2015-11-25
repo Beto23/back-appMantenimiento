@@ -20,7 +20,7 @@ $pdf->AddPage();
 //First table: put all columns automatically
 
 $sql_query = "SELECT 
-		CONCAT (clientes.nombre, ' ', clientes.nom_paterno, ' ', clientes.nom_materno) as nombre,
+		CONCAT (clientes.nombre, ' ', clientes.nom_paterno) as nombre,
 		autos.modelo as Auto,
 		DATE_FORMAT(fecha_inicio, '%d-%m-%Y') as 'Fecha',
 		mecanicos.nombre as Mecanico,
@@ -31,6 +31,7 @@ $sql_query = "SELECT
 				AND autos.id_cliente = clientes.id_cliente
 				AND citas.id_mantenimiento= mantenimientos.id_mantenimiento
 				AND citas.id_mecanico= mecanicos.id_mecanico
+				AND autos.id_cliente = '1'
 		ORDER BY id_citas desc ";
 
 $query = "SELECT CONCAT (clientes.nombre, ' ', clientes.nom_paterno, ' ', clientes.nom_materno) as nombre

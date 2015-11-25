@@ -78,6 +78,8 @@ $app->delete('/deleteCita', 'deleteCita');
 $app->delete('/deleteMantenimiento', 'deleteMantenimiento');
 $app->delete('/deleteAdministrador', 'deleteAdministrador');
 
+$app->get('/getApp', 'getApp');
+
 
 $app->run();
 

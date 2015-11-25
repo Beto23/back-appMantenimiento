@@ -254,6 +254,21 @@ function getAdministradores() {
 		echo json_encode($answer);
 	}
 }
+//ver todo
+function getApp() { 
+	$sql_query = "SELECT * FROM clientes, administrador, autos, citas, mecanicos, mantenimientos";
+	try {
+		$dbCon = getConnection();
+		$stmt   = $dbCon->query($sql_query);
+		$data  = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$dbCon = null;
+		echo json_encode($data);
+	} 
+	catch(PDOException $e) {
+		$answer = array( 'error' =>  $e->getMessage());
+		echo json_encode($answer);
+	}
+}
 /*Datos del mecanico*/
 
 function getMecanico() { 
